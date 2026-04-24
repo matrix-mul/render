@@ -6,6 +6,7 @@ import { Separator } from "@/components/ui/separator";
 import { Main, Nav } from "../styles/profile";
 import { CardSmall } from "@/components/ui/smallCard";
 import { Body } from "../styles/profile";
+
 export const revalidate = 10;
 
 export default async function Page() {
@@ -36,7 +37,7 @@ export default async function Page() {
       <Body>
         {data.map((card: { id: number; title: string; body: string }) => (
           <Link key={card.id} href={"/stories/" + card.id}>
-          <CardSmall key={card.id} title={card.title} body={card.body} />
+          <CardSmall skel={false} key={card.id} title={card.title} body={card.body} />
           </Link>
         ))}
       </Body>

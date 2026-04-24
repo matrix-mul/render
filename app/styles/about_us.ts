@@ -1,4 +1,3 @@
-"use client"
 import styled from "styled-components";
 
 export const Nav = styled.div`
@@ -18,12 +17,24 @@ export const Main = styled.div`
 `
 
 export const Body = styled.div`
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
     padding: 10px;
     height: 80%;
     gap: 20px;
     padding-top: 5vh;
     // padding-bottom: 5vh;
     // place-items: center;
+`
+
+
+export const Content = styled.div`
+    font-size: 100px;
+    font-weight: 900;
+`
+
+export const Content2 = styled.div`
+    font-size: 50px;
+    font-weight: 400;
 `

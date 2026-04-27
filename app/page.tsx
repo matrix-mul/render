@@ -16,6 +16,10 @@ export default function Home() {
         <Button className={"text-[25px] mr-2.5 ml-2.5"} variant="link">
           <Link href={"/about_us"}>About Us</Link>
         </Button>
+
+        <Button asChild className={"text-[25px] mr-2.5 ml-2.5"} variant="link">
+          <Link href={"/submit"}>Create Post</Link>
+        </Button>
       </Nav>
       <Separator className={"bg-black mt-2.5"} />
       <Body>

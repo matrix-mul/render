@@ -19,8 +19,8 @@ export const Body = styled.div`
     padding: 10px;
     height: 80%;
     flex-direction: column;
-    justify-content: flex-end;
-    
+    justify-content: center;
+    align-items: center;    
 `
 
 export const Content = styled.div`

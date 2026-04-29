@@ -1,3 +1,5 @@
+"use client";
+import Login from "@/components/Login";
 import { Body, Content, Content2, Main, Nav, Footer } from "./styles/home";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
@@ -23,8 +25,7 @@ export default function Home() {
       </Nav>
       <Separator className={"bg-black mt-2.5"} />
       <Body>
-        <Content>Render</Content>
-        <Content2>Leanring Rendering Patterns</Content2>
+        <Login />
       </Body>
       <Separator className={"bg-black  mt-2.5"} />
     </Main>

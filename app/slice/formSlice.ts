@@ -46,7 +46,6 @@ export const formSlice = createSlice({
   }
 });
 
-// Action creators are generated for each case reducer function
 export const { nextStep, prevStep, updateFormData, resetForm } =
   formSlice.actions;
 

@@ -1,12 +1,12 @@
+import { loginUser } from "../actions/setCookie";
 import { toggle } from "../slice/alertSlice";
 import {
-  FormDataPayload,
   nextStep,
-  prevStep,
-  resetForm,
   updateFormData,
 } from "../slice/formSlice";
+import { loginDataPayload } from "../slice/loginSlice";
 import { FormData } from "../submit/ContactSection";
+import { submit } from "../slice/loginSlice";
 
 export const asyncExample = (data: FormData) => (dispatch, getState) => {
   dispatch(toggle(true));
@@ -20,3 +20,12 @@ export const asyncExample = (data: FormData) => (dispatch, getState) => {
     console.log("After: ", state);
   }, 1000);
 };
+
+export const loginValidation =
+  (data: loginDataPayload) => async (dispatch) => {
+      const res = await loginUser(JSON.stringify(data));
+      if(res)
+      {
+        dispatch(submit(data))
+      }
+  };

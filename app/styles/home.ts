@@ -10,6 +10,7 @@ export const Main = styled.h1`
 export const Nav = styled.div`
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
     width: 100%;
     height: 10%;
     padding: 10px;

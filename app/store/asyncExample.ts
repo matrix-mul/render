@@ -7,6 +7,7 @@ import {
 import { loginDataPayload } from "../slice/loginSlice";
 import { FormData } from "../submit/ContactSection";
 import { submit } from "../slice/loginSlice";
+import { redirect } from "next/navigation"
 
 export const asyncExample = (data: FormData) => (dispatch, getState) => {
   dispatch(toggle(true));
@@ -27,5 +28,6 @@ export const loginValidation =
       if(res)
       {
         dispatch(submit(data))
+        redirect("/stories")
       }
   };

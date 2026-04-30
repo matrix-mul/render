@@ -22,6 +22,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { RootState } from "../app/store/store";
 import { loginValidation } from "@/app/store/asyncExample";
+import { redirect } from "next/navigation";
 
 const formSchema = yup.object({
   email: yup
@@ -41,18 +42,18 @@ export default function Login() {
     resolver: yupResolver(formSchema) as any,
     mode: "onTouched",
     defaultValues: {
-        email: "",
-        password: ""
+      email: "",
+      password: "",
     },
   });
   const dispatch = useDispatch();
 
   const handleSubmit = (data: FormData) => {
-    dispatch(loginValidation(data) as any)
+    dispatch(loginValidation(data) as any);
   };
 
   return (
-    <Card className="w-full sm:max-w-md">
+    <Card className="w-full rounded scale-140 sm:max-w-md">
       <CardHeader>
         <CardTitle>Login Form</CardTitle>
       </CardHeader>
@@ -69,9 +70,7 @@ export default function Login() {
               control={form.control}
               render={({ field, fieldState }) => (
                 <Field data-invalid={fieldState.invalid}>
-                  <FieldLabel htmlFor="form-rhf-demo-title">
-                    E-mail
-                  </FieldLabel>
+                  <FieldLabel htmlFor="form-rhf-demo-title">E-mail</FieldLabel>
                   <Input
                     {...field}
                     id="form-rhf-demo-title"

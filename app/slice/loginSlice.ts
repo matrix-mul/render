@@ -17,9 +17,12 @@ export const loginSlice = createSlice({
     submit: (state, action) => {
       return action.payload;
     },
+    logout: (state) => {
+      return initialState
+    }
   },
 });
 
-export const { submit } = loginSlice.actions;
+export const { submit , logout} = loginSlice.actions;
 
 export default loginSlice.reducer;

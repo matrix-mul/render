@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import { title } from "process";
 import { Spinner } from "@/components/ui/spinner";
+import Navbar from "@/components/Navbar";
 
 // Client components can not be Async, intresting
 
@@ -53,20 +54,7 @@ export default function Page() {
 
   return (
     <Main>
-      <Nav>
-        <Button asChild className={"text-[25px] mr-2.5"} variant="link">
-          <Link href={"/"}>Home</Link>
-        </Button>
-        <Button asChild className={"text-[25px] mr-2.5"} variant="link">
-          <Link href={"/stories"}>Stories</Link>
-        </Button>
-        <Button asChild className={"text-[25px] mr-2.5 ml-2.5"} variant="link">
-          <Link href={"/about_us"}>About Us</Link>
-        </Button>
-        <Button asChild className={"text-[25px] mr-2.5 ml-2.5"} variant="link">
-          <Link href={"/submit"}>Create Post</Link>
-        </Button>
-      </Nav>
+      <Navbar/>
       <Separator className={"bg-black mt-2.5"} />
       <Body>
         <Title>Title: </Title>

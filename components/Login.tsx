@@ -61,7 +61,7 @@ export default function Login() {
         <form
           id="form-rhf-demo-1"
           onSubmit={form.handleSubmit(handleSubmit, (error) => {
-            console.log("form submission failed ", error);
+            console.log("form submission failed", error);
           })}
         >
           <FieldGroup>

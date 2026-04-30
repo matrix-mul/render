@@ -1,28 +1,10 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Controller, useForm } from "react-hook-form";
 import * as yup from "yup";
-
-import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import {
-  Field,
-  FieldError,
-  FieldGroup,
-  FieldLabel,
-} from "@/components/ui/field";
-import { Input } from "@/components/ui/input";
+import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
-import { RootState } from "../app/store/store";
 import { loginValidation } from "@/app/store/asyncExample";
-import { redirect } from "next/navigation";
 
 const formSchema = yup.object({
   email: yup
@@ -53,65 +35,48 @@ export default function Login() {
   };
 
   return (
-    <Card className="w-full rounded scale-140 sm:max-w-md">
-      <CardHeader>
-        <CardTitle>Login Form</CardTitle>
-      </CardHeader>
-      <CardContent>
-        <form
-          id="form-rhf-demo-1"
-          onSubmit={form.handleSubmit(handleSubmit, (error) => {
-            console.log("form submission failed", error);
-          })}
-        >
-          <FieldGroup>
-            <Controller
-              name="email"
-              control={form.control}
-              render={({ field, fieldState }) => (
-                <Field data-invalid={fieldState.invalid}>
-                  <FieldLabel htmlFor="form-rhf-demo-title">E-mail</FieldLabel>
-                  <Input
-                    {...field}
-                    id="form-rhf-demo-title"
-                    aria-invalid={fieldState.invalid}
-                  />
-                  {fieldState.invalid && (
-                    <FieldError errors={[fieldState.error]} />
-                  )}
-                </Field>
-              )}
-            />
-            <Controller
-              name="password"
-              control={form.control}
-              render={({ field, fieldState }) => (
-                <Field data-invalid={fieldState.invalid}>
-                  <FieldLabel htmlFor="form-rhf-demo-title">
-                    Password
-                  </FieldLabel>
-                  <Input
-                    {...field}
-                    type="password"
-                    id="form-rhf-demo-title"
-                    aria-invalid={fieldState.invalid}
-                  />
-                  {fieldState.invalid && (
-                    <FieldError errors={[fieldState.error]} />
-                  )}
-                </Field>
-              )}
-            />
-          </FieldGroup>
-        </form>
-      </CardContent>
-      <CardFooter>
-        <Field orientation="horizontal">
-          <Button type="submit" variant="outline" form="form-rhf-demo-1">
-            Submit
-          </Button>
-        </Field>
-      </CardFooter>
-    </Card>
+    <form
+      className="flex flex-col w-[30%] h-full gap-5 mt-10 m-3"
+      id="form-rhf-demo-1"
+      onSubmit={form.handleSubmit(handleSubmit, (error) => {
+        console.log("form submission failed", error);
+      })}
+    >
+      <h1 className="text-2xl">Login</h1>
+      <Controller
+        name="email"
+        control={form.control}
+        render={({ field, fieldState }) => (
+          <TextField
+            {...field}
+            error={fieldState.invalid}
+            id="outlined-error-helper-text"
+            label="Enter your email address"
+            helperText={fieldState.error?.message}
+          />
+        )}
+      />
+      <Controller
+        name="password"
+        control={form.control}
+        render={({ field, fieldState }) => (
+          <TextField
+            {...field}
+            error={fieldState.invalid}
+            id="outlined-error-helper-text"
+            label="Password"
+            type="password"
+            helperText={fieldState.error?.message}
+          />
+        )}
+      />
+      <Button
+        variant="contained"
+        disabled={!form.formState.isValid}
+        type = "submit"
+     >
+        Login
+      </Button>
+    </form>
   );
 }

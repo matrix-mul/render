@@ -5,11 +5,11 @@ import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
-
+import Image from "next/image";
 export default function Home() {
   return (
     <Main>
-      <Navbar/>
+      <Navbar />
       <Separator className={"bg-black mt-2.5"} />
       <Body>
         <Login />

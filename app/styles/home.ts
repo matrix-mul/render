@@ -19,9 +19,11 @@ export const Body = styled.div`
     display: flex;
     padding: 10px;
     height: 80%;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;    
+    width: 100vw;
+    // padding: 100px;
+    flex-direction: row;
+    // justify-content: center;
+    // align-items: center;    
 `
 
 export const Content = styled.div`

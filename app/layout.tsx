@@ -57,14 +57,16 @@ export default function RootLayout({
         roboto.variable,
       )}
     >
-      <body className="min-h-full flex flex-col">
-        <AppRouterCacheProvider>
-          <ThemeProvider theme={theme}>
-            <StoreProvider>
-              <StyledComponentsRegistry>{children}</StyledComponentsRegistry>
-            </StoreProvider>
-          </ThemeProvider>
-        </AppRouterCacheProvider>
+      <body className=" bg-[url('/bg.png')] bg-cover bg-center bg-no-repeat bg-fixed">
+        <div className="min-h-full flex flex-col backdrop-blur-2xl">
+          <AppRouterCacheProvider>
+            <ThemeProvider theme={theme}>
+              <StoreProvider>
+                <StyledComponentsRegistry>{children}</StyledComponentsRegistry>
+              </StoreProvider>
+            </ThemeProvider>
+          </AppRouterCacheProvider>
+        </div>
       </body>
     </html>
   );

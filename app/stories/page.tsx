@@ -34,14 +34,17 @@ export default async function Page() {
             <Card
               sx={{
                 minWidth: 275,
-                minHeight: 220,
+                minHeight: "30vh",
                 overflow: "hidden",
                 transition: "transform 0.3s ease",
                 "&:hover": {
-                  // bgcolor: "",
-                  boxShadow: 1,
                   transform: "scale(1.02)"
                 },
+                backgroundColor: "rgba(255, 255, 255, 0.2)",
+                backdropFilter: "blur(900px)",
+                border: "1px solid rgba(255, 255, 255, 0.3) ",
+                boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",
+                
               }}
             >
               <CardContent>

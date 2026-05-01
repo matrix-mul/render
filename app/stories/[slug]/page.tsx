@@ -1,15 +1,11 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
+import Button from "@mui/material/Button"
 import { Separator } from "@/components/ui/separator";
 import { Main, Nav } from "../../styles/profile";
-import { CardSmall } from "@/components/ui/smallCard";
 import { Body, Content, Title } from "../../styles/story_slug";
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
-import { title } from "process";
-import { Spinner } from "@/components/ui/spinner";
 import Navbar from "@/components/Navbar";
 
 // Client components can not be Async, intresting
@@ -63,12 +59,21 @@ export default function Page() {
         <Content>{data.body}</Content>
         {/*  */}
         <div className="flex flex-col-reverse h-full mb-5">
-        <Button className="text-2xl p-10 rounded-2xl" variant="outline" disabled={isGenerating} onClick={handleClick}>
+        <Button disabled={isGenerating} onClick={handleClick} sx={
+          {
+            minHeight: 50,
+            backgroundColor: "rgba(255, 255, 255, 0.2)",
+            border: "1px solid rgba(255, 255, 255, 0.3) ",
+            boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",
+            fontSize: "30px",
+            color: "black",
+            fontFamily: "inherit"
+          }
+        }>
           {isGenerating == false ? (
             <>Generate</>
           ) : (
             <>
-              <Spinner className="m-2" data-icon="inline-start" />
               Generating...
             </>
           )}

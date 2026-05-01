@@ -38,7 +38,7 @@ export default function Navbar() {
       {loggedIn != "" && (
         <Button
           onClick={() => handleLogout()}
-          className={"text-[25px] text-red-500 mr-2.5 ml-2.5"}
+          className={"text-[25px] mr-2.5 ml-2.5"}
           variant="link"
         >
           Logout

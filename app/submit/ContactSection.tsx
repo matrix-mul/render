@@ -1,38 +1,18 @@
 import {
   FormDataPayload,
-  nextStep,
-  prevStep,
   resetForm,
-  updateFormData,
 } from "../slice/formSlice";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Controller, useForm } from "react-hook-form";
 import * as yup from "yup";
 
-import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import {
-  Field,
-  FieldError,
-  FieldGroup,
-  FieldLabel,
-} from "@/components/ui/field";
-import { Input } from "@/components/ui/input";
+import TextField from "@mui/material/TextField";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { RootState } from "../store/store";
-import { createAsyncThunk } from "@reduxjs/toolkit";
 import { AlertDemo } from "./Alert";
-import { alertData } from "../slice/alertSlice";
 import { asyncExample } from "../store/asyncExample";
-
+import Button from "@mui/material/Button";
 const formSchema = yup.object({
   firstName: yup.string().required("First name is required"),
   lastName: yup.string(),
@@ -45,8 +25,8 @@ export default function ContactSection() {
     (state: RootState) => state.form.formData,
   );
   const alertVisible: boolean = useSelector(
-    (state:RootState) => state.alert.visible
-  )
+    (state: RootState) => state.alert.visible,
+  );
   const dispatch = useDispatch();
 
   const form = useForm<FormData>({
@@ -59,7 +39,7 @@ export default function ContactSection() {
   });
 
   const handleNext = (data: FormData) => {
-    dispatch(asyncExample(data))
+    dispatch(asyncExample(data) as any);
     // dispatch(updateFormData(data));
     // dispatch(nextStep());
   };
@@ -70,79 +50,83 @@ export default function ContactSection() {
 
   return (
     <>
-      { alertVisible && <AlertDemo/>}
-      <Card className="w-full sm:max-w-md">
-        <CardHeader>
-          <CardTitle>Personal Information</CardTitle>
-          <CardDescription>Account Creation Form</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <form
-            id="form-rhf-demo"
-            onSubmit={form.handleSubmit(handleNext, (error) => {
-              console.log("form submission failed ", error);
-            })}
-          >
-            <FieldGroup>
-              <Controller
-                name="firstName"
-                control={form.control}
-                render={({ field, fieldState }) => (
-                  <Field data-invalid={fieldState.invalid}>
-                    <FieldLabel htmlFor="form-rhf-demo-title">
-                      First Name
-                    </FieldLabel>
-                    <Input
-                      {...field}
-                      id="form-rhf-demo-title"
-                      aria-invalid={fieldState.invalid}
-                    />
-                    {fieldState.invalid && (
-                      <FieldError errors={[fieldState.error]} />
-                    )}
-                  </Field>
-                )}
+      {alertVisible && <AlertDemo />}
+      <div className="flex w-full h-full">
+        <form
+          className="flex flex-col w-[30%] h-full gap-5 mt-10 m-3"
+          id="form-rhf-demo-1"
+          onSubmit={form.handleSubmit(handleNext, (error) => {
+            console.log("form submission failed ", error);
+          })}
+        >
+          <h1 className="text-2xl">Registration</h1>
+          <Controller
+            name="firstName"
+            control={form.control}
+            render={({ field, fieldState }) => (
+              <TextField
+                {...field}
+                error={fieldState.invalid}
+                id="outlined-error-helper-text"
+                label="Enter your first name"
+                helperText={fieldState.error?.message}
+                sx={{}}
               />
-              <Controller
-                name="lastName"
-                control={form.control}
-                render={({ field, fieldState }) => (
-                  <Field data-invalid={fieldState.invalid}>
-                    <FieldLabel htmlFor="form-rhf-demo-title">
-                      Last Name
-                    </FieldLabel>
-                    <Input
-                      {...field}
-                      id="form-rhf-demo-title"
-                      aria-invalid={fieldState.invalid}
-                    />
-                    {fieldState.invalid && (
-                      <FieldError errors={[fieldState.error]} />
-                    )}
-                  </Field>
-                )}
+            )}
+          />
+          <Controller
+            name="lastName"
+            control={form.control}
+            render={({ field, fieldState }) => (
+              <TextField
+                {...field}
+                error={fieldState.invalid}
+                id="outlined-error-helper-text"
+                label="Enter your last name"
+                helperText={fieldState.error?.message}
               />
-            </FieldGroup>
-          </form>
-        </CardContent>
-        <CardFooter>
-          <Field orientation="horizontal">
+            )}
+          />
+          <div className="flex gap-3.5">
             <Button
               type="button"
               onClick={() => {
                 form.reset();
                 dispatch(resetForm());
               }}
+              sx={{
+                backgroundColor: "rgba(255, 255, 255, 0.3)",
+                color: "black",
+                "&:hover": {
+                  boxShadow: "0 4px 30px rgba(0, 0, 0, 0.3)",
+                },
+                fontSize: "15px",
+                padding: "10px 20px",
+                minWidth: "6vw",
+              }}
             >
               Reset
             </Button>
 
-            <Button type="submit" variant="outline" form="form-rhf-demo">
+            <Button
+              type="submit"
+              form="form-rhf-demo-1"
+              sx={{
+                backgroundColor: "rgba(255, 255, 255, 0.3)",
+                color: "black",
+                "&:hover": {
+                  boxShadow: "0 4px 30px rgba(0, 0, 0, 0.3)",
+                },
+                fontSize: "15px",
+                padding: "10px 20px",
+                 minWidth: "6vw"
+              }}
+            >
               Next
             </Button>
-          </Field>
-        </CardFooter>
-      </Card>
+          </div>
+        </form>
+      </div>
     </>
   );
 }

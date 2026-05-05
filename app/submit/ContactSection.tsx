@@ -1,7 +1,4 @@
-import {
-  FormDataPayload,
-  resetForm,
-} from "../slice/formSlice";
+import { FormDataPayload, resetForm } from "../slice/formSlice";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Controller, useForm } from "react-hook-form";
 import * as yup from "yup";
@@ -89,39 +86,16 @@ export default function ContactSection() {
           />
           <div className="flex gap-3.5">
             <Button
-              type="button"
+              variant="simple"
               onClick={() => {
                 form.reset();
                 dispatch(resetForm());
-              }}
-              sx={{
-                backgroundColor: "rgba(255, 255, 255, 0.3)",
-                color: "black",
-                "&:hover": {
-                  boxShadow: "0 4px 30px rgba(0, 0, 0, 0.3)",
-                },
-                fontSize: "15px",
-                padding: "10px 20px",
-                minWidth: "6vw",
               }}
             >
               Reset
             </Button>
 
-            <Button
-              type="submit"
-              form="form-rhf-demo-1"
-              sx={{
-                backgroundColor: "rgba(255, 255, 255, 0.3)",
-                color: "black",
-                "&:hover": {
-                  boxShadow: "0 4px 30px rgba(0, 0, 0, 0.3)",
-                },
-                fontSize: "15px",
-                padding: "10px 20px",
-                 minWidth: "6vw"
-              }}
-            >
+            <Button variant="simple"  form="form-rhf-demo-1">
               Next
             </Button>
           </div>

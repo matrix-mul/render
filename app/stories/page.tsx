@@ -1,6 +1,3 @@
-// "use client";
-
-// import { Button } from "@/components/ui/button";
 import Link from "@/components/Link";
 import { Separator } from "@/components/ui/separator";
 import { Main, Nav } from "../styles/profile";
@@ -12,18 +9,13 @@ import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-export const revalidate = 10;
+import instance from "../axiosConfig";
 
 export default async function Page() {
-  const data = await fetch("https://jsonplaceholder.typicode.com/posts")
-    .then((res) => res.json())
-    .then((res) => {
-      const filter_res = res.slice(0, 6);
-      console.log("fetch called");
-      return filter_res;
-    })
-    .catch((err) => console.log(err));
-
+  const data = await instance
+    .get("/")
+    .then((response) => response.data)
+    .catch((error) => console.log(error));
   return (
     <Main>
       <Navbar />
@@ -38,13 +30,12 @@ export default async function Page() {
                 overflow: "hidden",
                 transition: "transform 0.3s ease",
                 "&:hover": {
-                  transform: "scale(1.02)"
+                  transform: "scale(1.02)",
                 },
                 backgroundColor: "rgba(255, 255, 255, 0.2)",
                 backdropFilter: "blur(900px)",
                 border: "1px solid rgba(255, 255, 255, 0.3) ",
                 boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",
-                
               }}
             >
               <CardContent>

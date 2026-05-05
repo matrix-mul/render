@@ -1,84 +1,51 @@
 "use client";
 
-import Button from "@mui/material/Button"
 import { Separator } from "@/components/ui/separator";
-import { Main, Nav } from "../../styles/profile";
+import { Main } from "../../styles/profile";
 import { Body, Content, Title } from "../../styles/story_slug";
-import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import Navbar from "@/components/Navbar";
+import { useGetID } from "@/app/hooks/useGet";
 
 // Client components can not be Async, intresting
 
+// export async function generateStaticParams() {
+//   const data = await fetch("https://jsonplaceholder.typicode.com/posts")
+//     .then((res) => res.json())
+//     .then((res) => {
+//       const filter_res = res.slice(0, 6);
+//       console.log("data fetching for static params...");
+//       return filter_res;
+//     })
+//     .catch((err) => console.log(err));
+
+//   return data.map((post: any) => ({
+//     slug: post.id
+//   }));
+// }
+
 export default function Page() {
-  const [data, setData] = useState({
-    title: "",
-    body: "",
-  });
-  const [isGenerating, setGenerating] = useState(false);
   const params = useParams();
-  const slug = params.slug as string;
+  const slug = params.slug;
   console.log(slug);
-  useEffect(() => {
-    fetch(`https://jsonplaceholder.typicode.com/posts/${slug}`)
-      .then((res) => res.json())
-      .then((res) => {
-        console.log(res);
-        setData(res);
-      });
-  }, []);
+
+  const { data, isPending, isError } = useGetID(Number(slug));
+  console.log(data);
 
   const dummy = {
     title: "Loading new data.",
-    body: "Loading new data."
-  }
-
-  function handleClick() {
-    setGenerating(true);
-    setData(dummy);
-    setTimeout(() => {
-      fetch(`https://jsonplaceholder.typicode.com/posts/${slug}`)
-        .then((res) => res.json())
-        .then((res) => {
-          setData(res);
-        })
-        .finally(() => {
-          setGenerating(false);
-        });
-    }, 5000);
-  }
+    body: "Loading new data.",
+  };
 
   return (
     <Main>
-      <Navbar/>
+      <Navbar />
       <Separator className={"bg-black mt-2.5"} />
       <Body>
         <Title>Title: </Title>
-        <Content>{data.title}</Content>
+        <Content>{isPending ? dummy.title : data.title}</Content>
         <Title>Content: </Title>
-        <Content>{data.body}</Content>
-        {/*  */}
-        <div className="flex flex-col-reverse h-full mb-5">
-        <Button disabled={isGenerating} onClick={handleClick} sx={
-          {
-            minHeight: 50,
-            backgroundColor: "rgba(255, 255, 255, 0.2)",
-            border: "1px solid rgba(255, 255, 255, 0.3) ",
-            boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",
-            fontSize: "30px",
-            color: "black",
-            fontFamily: "inherit"
-          }
-        }>
-          {isGenerating == false ? (
-            <>Generate</>
-          ) : (
-            <>
-              Generating...
-            </>
-          )}
-        </Button>
-        </div>
+        <Content>{isPending ? dummy.body : data.body}</Content>
       </Body>
       <Separator className={"bg-black mt-2.5"} />
     </Main>

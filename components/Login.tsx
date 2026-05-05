@@ -71,13 +71,9 @@ export default function Login() {
         )}
       />
       <Button
-        variant="contained"
         disabled={!form.formState.isValid}
         type = "submit"
-        sx={{
-          minHeight: "7vh",
-          bgcolor: "black"
-        }}
+        variant ="blackBtn"
      >
         Login
       </Button>

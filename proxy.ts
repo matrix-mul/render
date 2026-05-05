@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+import { NextResponse, userAgent } from "next/server";
 import type { NextRequest } from "next/server";
 
 export function proxy(request: NextRequest) {
@@ -25,3 +25,5 @@ export const config = {
     "/((?!api|_next/static|_next/image|.*\\.png$).*)",
   ],
 };
+
+// useGet usePost axios_instance react_query 

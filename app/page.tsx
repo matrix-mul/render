@@ -1,11 +1,8 @@
 "use client";
 import Login from "@/components/Login";
 import { Body, Content, Content2, Main, Nav, Footer } from "./styles/home";
-import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import Link from "next/link";
 import Navbar from "@/components/Navbar";
-import Image from "next/image";
 export default function Home() {
   return (
     <Main>

@@ -5,6 +5,10 @@ import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import { useDispatch, useSelector } from "react-redux";
 import { loginValidation } from "@/app/store/asyncExample";
+import { useLogin } from "@/app/hooks/useGet";
+import { submit } from "@/app/slice/loginSlice";
+import { redirect } from "next/navigation";
+import { isPending } from "@reduxjs/toolkit";
 
 const formSchema = yup.object({
   email: yup
@@ -17,7 +21,7 @@ const formSchema = yup.object({
     .required("Password is required"),
 });
 
-type FormData = yup.InferType<typeof formSchema>;
+export type FormData = yup.InferType<typeof formSchema>;
 
 export default function Login() {
   const form = useForm<FormData>({
@@ -29,9 +33,15 @@ export default function Login() {
     },
   });
   const dispatch = useDispatch();
+  const login = useLogin();
 
   const handleSubmit = (data: FormData) => {
-    dispatch(loginValidation(data) as any);
+    login.mutate(data, {
+      onSuccess: () => {
+        dispatch(submit(data));
+        redirect("/stories");
+      },
+    });
   };
 
   return (
@@ -72,9 +82,9 @@ export default function Login() {
       />
       <Button
         disabled={!form.formState.isValid}
-        type = "submit"
-        variant ="blackBtn"
-     >
+        type="submit"
+        variant="blackBtn"
+      >
         Login
       </Button>
     </form>

@@ -1,9 +1,9 @@
-import { NextResponse, userAgent } from "next/server";
-import type { NextRequest } from "next/server";
+import { NextResponse } from "next/server";
+import { NextRequest } from "next/server";
 
 export function proxy(request: NextRequest) {
   const hasToken = request.cookies.has("session_token_anush");
-  const isAuthPage = request.nextUrl.pathname === "/"
+  const isAuthPage = request.nextUrl.pathname === "/";
 
   if (isAuthPage) {
     if (hasToken) {
@@ -13,6 +13,8 @@ export function proxy(request: NextRequest) {
   }
 
   if (!hasToken) {
+    if (request.nextUrl.pathname === "/about_us") return NextResponse.next();
+
     return NextResponse.redirect(new URL("/", request.url));
   }
 
@@ -26,4 +28,4 @@ export const config = {
   ],
 };
 
-// useGet usePost axios_instance react_query 
+// useGet usePost axios_instance react_query

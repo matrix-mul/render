@@ -21,27 +21,7 @@ export const asyncExample = (data: FormData) => (dispatch, getState) => {
 };
 
 export const loginValidation = (data: loginDataPayload) => async (dispatch) => {
-  const errmess = "";
 
-  const user1 = instance.post("/submit")
-
-  const user = fetch("http://localhost:3000/api/submit", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(data),
-  })
-    .then((res) => res.json())
-    // .then(() => {
-    //   dispatch(submit(data));
-    //   redirect("/stories");
-    // })
-    .catch((err) => {
-      console.log(err);
-    });
-
-  // if (user) {
   dispatch(submit(data));
   redirect("/stories");
   // }

@@ -26,4 +26,5 @@ export const Body = styled.div`
     padding-top: 5vh;
     // padding-bottom: 5vh;
     // place-items: center;
+    overflow: scroll;
 `

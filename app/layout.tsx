@@ -21,7 +21,7 @@ export default function RootLayout({
 
   return (
     <html lang="en">
-      <body className=" bg-[url('/bg.png')] bg-cover bg-center bg-no-repeat bg-fixed">
+      <body className=" bg-[url('/bg3.png')] bg-cover bg-center bg-no-repeat bg-fixed">
         <div className="min-h-full flex flex-col backdrop-blur-2xl">
           <AppRouterCacheProvider>
             <ThemeProvider theme={theme}>

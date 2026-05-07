@@ -7,21 +7,22 @@ import { RootState } from "@/app/store/store";
 import { logout } from "@/app/slice/loginSlice";
 import { logoutUser } from "@/app/actions/removeCookie";
 import { redirect } from "next/navigation";
+import SearchBar from "./SearchBar";
 
-export default function Navbar() {
+export default function Navbar({ search }: { search?: boolean }) {
   const loggedIn = useSelector((state: RootState) => state.login.email);
   const dispatch = useDispatch();
 
   const handleLogout = () => {
     logoutUser().then(() => {
       dispatch(logout());
-      redirect("/")
+      redirect("/");
     });
   };
 
   return (
     <Nav>
-      <div>
+      <div className="flex w-full h-full  items-center">
         <Button asChild className={"text-[25px] mr-2.5"} variant="link">
           <Link href={"/"}>Home</Link>
         </Button>
@@ -34,7 +35,9 @@ export default function Navbar() {
         <Button asChild className={"text-[25px] mr-2.5 ml-2.5"} variant="link">
           <Link href={"/submit"}>Create Post</Link>
         </Button>
+        {search === true && <SearchBar />}
       </div>
+      
       {loggedIn != "" && (
         <Button
           onClick={() => handleLogout()}

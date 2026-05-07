@@ -45,8 +45,6 @@ export const formSlice = createSlice({
     })
   }
 });
-
 export const { nextStep, prevStep, updateFormData, resetForm } =
   formSlice.actions;
-
 export default formSlice.reducer;

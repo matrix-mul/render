@@ -27,5 +27,3 @@ export const config = {
     "/((?!api|_next/static|_next/image|.*\\.png$).*)",
   ],
 };
-
-// useGet usePost axios_instance react_query

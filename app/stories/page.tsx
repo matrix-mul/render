@@ -1,7 +1,7 @@
 "use client";
 import Link from "@/components/Link";
 import { Separator } from "@/components/ui/separator";
-import { Main, Nav } from "../styles/profile";
+import { Main } from "../styles/profile";
 import { Body } from "../styles/profile";
 import Navbar from "@/components/Navbar";
 import Card from "@mui/material/Card";
@@ -10,7 +10,8 @@ import Typography from "@mui/material/Typography";
 import instance from "../axiosConfig";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { useOnInView } from "react-intersection-observer";
-
+import { ReactEventHandler, useEffect } from "react";
+import { useSelector } from "react-redux";
 export default function Page() {
   const fetchStories = async ({ pageParam }: { pageParam: number }) => {
     const res = await instance.get(`/?page=${pageParam}`);
@@ -19,25 +20,35 @@ export default function Page() {
 
   const inViewRef = useOnInView((inView, entry) => {
     if (inView) {
-      fetchNextPage()
+      fetchNextPage();
     } else {
       console.log("Element left view", entry.target);
     }
   });
 
-  const {
-    data,
-    fetchNextPage,
-    hasNextPage,
-    isPending,
-  } = useInfiniteQuery({
+
+  const handleScroll = (e: any) => {
+    const {scrollHeight, scrollTop, clientHeight } = e.target;
+    if(scrollHeight - scrollTop >= clientHeight)
+    {
+      console.log("Ayo scrolled to bottom")
+    }
+  }
+
+  const { data, fetchNextPage, hasNextPage, isPending } = useInfiniteQuery({
     queryKey: ["projects"],
     queryFn: fetchStories,
     initialPageParam: 0,
     getNextPageParam: (lastPage, pages) => lastPage.next,
   });
 
-  console.log(data?.pages);
+  const valued = useSelector((state: any) => state.query);
+  const modedData = data?.pages.map((value) => {
+    return value.data.filter((card : any) => {
+      return card.title.toLowerCase().includes(valued.toLowerCase());
+    });
+  });
+
   if (isPending) {
     return (
       <Main>
@@ -72,11 +83,11 @@ export default function Page() {
   }
   return (
     <Main>
-      <Navbar />
+      <Navbar search={true} />
       <Separator className={"bg-black mt-2.5"} />
-      <Body>
-        {data?.pages.map((value) =>
-          value.data.map(
+      <Body onScroll={handleScroll}>
+        {modedData?.map((value) =>
+          value.map(
             (card: { id: number; title: string; body: string }) => (
               <Link key={card.id} href={"/stories/" + card.id}>
                 <Card
@@ -108,7 +119,7 @@ export default function Page() {
             ),
           ),
         )}
-        <h1 ref={inViewRef}>{hasNextPage?"Loading....":""}</h1>
+        <h1 ref={inViewRef}>{hasNextPage ? "" : ""}</h1>
       </Body>
       <Separator className={"bg-black mt-2.5"} />
     </Main>

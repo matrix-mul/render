@@ -29,7 +29,7 @@ export default function Page() {
   const slug = params.slug;
   console.log(slug);
 
-  const { data, isPending, isError } = useGetID(Number(slug));
+  const { data, isPending } = useGetID(Number(slug));
   console.log(data);
 
   const dummy = {

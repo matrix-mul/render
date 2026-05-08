@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { NextRequest } from "next/server";
 
 export function proxy(request: NextRequest) {
+  const publicRoutes = ["/about_us", "/"];
   const hasToken = request.cookies.has("session_token_anush");
   const isAuthPage = request.nextUrl.pathname === "/";
 
@@ -13,7 +14,8 @@ export function proxy(request: NextRequest) {
   }
 
   if (!hasToken) {
-    if (request.nextUrl.pathname === "/about_us") return NextResponse.next();
+    if (publicRoutes.includes(request.nextUrl.pathname))
+      return NextResponse.next();
 
     return NextResponse.redirect(new URL("/", request.url));
   }
@@ -23,7 +25,6 @@ export function proxy(request: NextRequest) {
 
 export const config = {
   matcher: [
-    // This runs on all UI routes, but skips API routes, images, and static files
     "/((?!api|_next/static|_next/image|.*\\.png$).*)",
   ],
 };

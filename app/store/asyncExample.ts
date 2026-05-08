@@ -21,8 +21,6 @@ export const asyncExample = (data: FormData) => (dispatch, getState) => {
 };
 
 export const loginValidation = (data: loginDataPayload) => async (dispatch) => {
-
   dispatch(submit(data));
   redirect("/stories");
-  // }
 };

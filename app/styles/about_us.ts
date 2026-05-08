@@ -19,15 +19,14 @@ export const Main = styled.div`
 export const Body = styled.div`
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
+    // justify-content: flex-end;
     padding: 10px;
     height: 80%;
     gap: 20px;
     padding-top: 5vh;
-    // padding-bottom: 5vh;
-    // place-items: center;
+    padding-left: 10vw;
+    padding-right: 10vw;
 `
-
 
 export const Content = styled.div`
     font-size: 100px;

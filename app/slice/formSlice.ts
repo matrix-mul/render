@@ -38,12 +38,12 @@ export const formSlice = createSlice({
     },
     resetForm: () => initialState,
   },
-  extraReducers: builder => {
-    builder.addCase(resetAll, state => {
+  extraReducers: (builder) => {
+    builder.addCase(resetAll, (state) => {
       console.log("Global action triggered");
       return initialState;
-    })
-  }
+    });
+  },
 });
 export const { nextStep, prevStep, updateFormData, resetForm } =
   formSlice.actions;

@@ -18,11 +18,11 @@ export const loginSlice = createSlice({
       return action.payload;
     },
     logout: (state) => {
-      return initialState
-    }
+      return initialState;
+    },
   },
 });
 
-export const { submit , logout} = loginSlice.actions;
+export const { submit, logout } = loginSlice.actions;
 
 export default loginSlice.reducer;

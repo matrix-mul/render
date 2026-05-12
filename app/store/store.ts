@@ -12,7 +12,7 @@ import storage from "./storage";
 import formSlice from "../slice/formSlice";
 import alertSlice from "../slice/alertSlice";
 import loginSlice from "../slice/loginSlice";
-import querySlice  from "../slice/querySlice";
+import querySlice from "../slice/querySlice";
 
 const rootReducer = combineReducers({
   form: formSlice,

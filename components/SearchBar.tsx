@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 export default function SearchBar() {
   const dispatch = useDispatch();
   const [searchValue, setSearchValue] = useState("");
+
   useEffect(() => {
     const timer = setTimeout(() => {
       dispatch(update(searchValue));

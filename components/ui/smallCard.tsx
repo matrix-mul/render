@@ -26,8 +26,7 @@ export function CardSmall({
         <CardTitle className={"h-10 mb-2 rounded bg-gray-200"}></CardTitle>
         <CardDescription className="h-10 rounded bg-gray-200"></CardDescription>
       </CardHeader>
-      <CardContent className="m-3 h-25 rounded bg-gray-200">
-      </CardContent>
+      <CardContent className="m-3 h-25 rounded bg-gray-200"></CardContent>
     </Card>
   ) : (
     <Card

@@ -18,7 +18,6 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-
   return (
     <html lang="en">
       <body className=" bg-[url('/bg3.png')] bg-cover bg-center bg-no-repeat bg-fixed">

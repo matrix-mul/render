@@ -3,7 +3,6 @@
 import { useRef } from "react";
 import { Provider } from "react-redux";
 import { makeStore } from "./store/store";
-import { AppStore } from "./store/store";
 import { persistStore } from "redux-persist";
 import { PersistGate } from "redux-persist/integration/react";
 
@@ -12,8 +11,10 @@ export default function StoreProvider({
 }: {
   children: React.ReactNode;
 }) {
+  /* eslint-disable */
   const storeRef = useRef<any>(null);
   const presistStoreRef = useRef<any>(null);
+  /* eslint-enable */
 
   if (!storeRef.current) {
     storeRef.current = makeStore();
@@ -22,7 +23,9 @@ export default function StoreProvider({
 
   return (
     <Provider store={storeRef.current}>
-      <PersistGate loading={null} persistor={presistStoreRef.current}>{children}</PersistGate>
+      <PersistGate loading={null} persistor={presistStoreRef.current}>
+        {children}
+      </PersistGate>
     </Provider>
   );
 }

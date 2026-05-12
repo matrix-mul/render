@@ -37,7 +37,7 @@ export default function Navbar({ search }: { search?: boolean }) {
         </Button>
         {search === true && <SearchBar />}
       </div>
-      
+
       {loggedIn != "" && (
         <Button
           onClick={() => handleLogout()}

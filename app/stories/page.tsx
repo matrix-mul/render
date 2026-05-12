@@ -18,22 +18,12 @@ export default function Page() {
     return res.data;
   };
 
-  const inViewRef = useOnInView((inView, entry) => {
-    if (inView) {
-      fetchNextPage();
-    } else {
-      console.log("Element left view", entry.target);
-    }
-  });
-
-
   const handleScroll = (e: any) => {
-    const {scrollHeight, scrollTop, clientHeight } = e.target;
-    if(scrollHeight - scrollTop >= clientHeight)
-    {
-      console.log("Ayo scrolled to bottom")
+    const { scrollHeight, scrollTop, clientHeight } = e.target;
+    if (scrollHeight - scrollTop >= clientHeight) {
+      console.log("Ayo scrolled to bottom");
     }
-  }
+  };
 
   const { data, fetchNextPage, hasNextPage, isPending } = useInfiniteQuery({
     queryKey: ["projects"],
@@ -42,9 +32,17 @@ export default function Page() {
     getNextPageParam: (lastPage, pages) => lastPage.next,
   });
 
+  const inViewRef = useOnInView((inView, entry) => {
+    if (inView) {
+      fetchNextPage();
+    } else {
+      console.log("Element left view", entry.target);
+    }
+  });
+
   const valued = useSelector((state: any) => state.query);
   const modedData = data?.pages.map((value) => {
-    return value.data.filter((card : any) => {
+    return value.data.filter((card: any) => {
       return card.title.toLowerCase().includes(valued.toLowerCase());
     });
   });
@@ -87,37 +85,35 @@ export default function Page() {
       <Separator className={"bg-black mt-2.5"} />
       <Body onScroll={handleScroll}>
         {modedData?.map((value) =>
-          value.map(
-            (card: { id: number; title: string; body: string }) => (
-              <Link key={card.id} href={"/stories/" + card.id}>
-                <Card
-                  sx={{
-                    minWidth: 275,
-                    minHeight: "30vh",
-                    overflow: "hidden",
-                    transition: "transform 0.3s ease",
-                    "&:hover": {
-                      transform: "scale(1.02)",
-                    },
-                    backgroundColor: "rgba(255, 255, 255, 0.2)",
-                    backdropFilter: "blur(900px)",
-                    border: "1px solid rgba(255, 255, 255, 0.3) ",
-                    boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",
-                  }}
-                >
-                  <CardContent>
-                    <Typography variant="h5" component="div">
-                      Stories
-                    </Typography>
-                    <Typography sx={{ color: "text.secondary", mb: 1.5 }}>
-                      {card.title}
-                    </Typography>
-                    <Typography variant="body2">{card.body}</Typography>
-                  </CardContent>
-                </Card>
-              </Link>
-            ),
-          ),
+          value.map((card: { id: number; title: string; body: string }) => (
+            <Link key={card.id} href={"/stories/" + card.id}>
+              <Card
+                sx={{
+                  minWidth: 275,
+                  minHeight: "30vh",
+                  overflow: "hidden",
+                  transition: "transform 0.3s ease",
+                  "&:hover": {
+                    transform: "scale(1.02)",
+                  },
+                  backgroundColor: "rgba(255, 255, 255, 0.2)",
+                  backdropFilter: "blur(900px)",
+                  border: "1px solid rgba(255, 255, 255, 0.3) ",
+                  boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",
+                }}
+              >
+                <CardContent>
+                  <Typography variant="h5" component="div">
+                    Stories
+                  </Typography>
+                  <Typography sx={{ color: "text.secondary", mb: 1.5 }}>
+                    {card.title}
+                  </Typography>
+                  <Typography variant="body2">{card.body}</Typography>
+                </CardContent>
+              </Card>
+            </Link>
+          )),
         )}
         <h1 ref={inViewRef}>{hasNextPage ? "" : ""}</h1>
       </Body>

@@ -13,7 +13,7 @@ export async function loginUser(token: string) {
     });
     return true;
   } catch (err) {
-    console.error(err)
-    return false
+    console.error(err);
+    return false;
   }
 }

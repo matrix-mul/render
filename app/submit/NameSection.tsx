@@ -120,7 +120,7 @@ export default function NameSection() {
               minWidth: "6vw",
             }}
             onClick={() => {
-              dispatch(prevStep())
+              dispatch(prevStep());
             }}
           >
             Prev

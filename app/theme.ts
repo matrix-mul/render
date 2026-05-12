@@ -2,7 +2,7 @@
 declare module "@mui/material/Button" {
   interface ButtonPropsVariantOverrides {
     simple: true;
-    blackBtn: true
+    blackBtn: true;
   }
 }
 
@@ -28,23 +28,20 @@ const themeOptions = {
               },
             },
             {
-              props: (props: any) => props.disabled == true && 
-              props.variant == "blackBtn"
-              ,
+              props: (props: any) =>
+                props.disabled == true && props.variant == "blackBtn",
               style: {
                 minHeight: "7vh",
-                backgroundColor: "gray",                
+                backgroundColor: "gray",
               },
             },
             {
-              props: (props: any) => props.disabled == false && 
-              props.variant == "blackBtn"
-              ,
+              props: (props: any) =>
+                props.disabled == false && props.variant == "blackBtn",
               style: {
                 minHeight: "7vh",
                 backgroundColor: "black",
-                color: "white"
-                
+                color: "white",
               },
             },
           ],

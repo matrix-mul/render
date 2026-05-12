@@ -6,6 +6,24 @@ const eslintConfig = defineConfig([
   ...nextVitals,
   ...nextTs,
   // Override default ignores of eslint-config-next.
+  {
+    rules: {
+      "capitalized-comments": [
+        "error",
+        "always",
+        {
+          ignorePattern: "pragma",
+        },
+      ],
+      "func-style": ["error"],
+      "@typescript-eslint/no-explicit-any": ["warn"],
+    },
+  },
+  {
+    linterOptions: {
+      noInlineConfig: false,
+    },
+  },
   globalIgnores([
     // Default ignores of eslint-config-next:
     ".next/**",
@@ -15,4 +33,4 @@ const eslintConfig = defineConfig([
   ]),
 ]);
 
-export default eslintConfig;
+export default eslintConfig;  

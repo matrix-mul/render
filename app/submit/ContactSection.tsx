@@ -95,7 +95,7 @@ export default function ContactSection() {
               Reset
             </Button>
 
-            <Button variant="simple"  form="form-rhf-demo-1">
+            <Button variant="simple" form="form-rhf-demo-1">
               Next
             </Button>
           </div>

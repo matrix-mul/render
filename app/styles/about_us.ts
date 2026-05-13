@@ -1,5 +1,9 @@
 import styled from "styled-components";
 
+interface CardStyleProps {
+  priority: "HIGH" | "LOW" | "MID";
+}
+
 export const Nav = styled.div`
   display: flex;
   flex-direction: row;
@@ -18,14 +22,12 @@ export const Main = styled.div`
 
 export const Body = styled.div`
   display: flex;
-  flex-direction: column;
-  // justify-content: flex-end;
   padding: 10px;
   height: 80%;
   gap: 20px;
   padding-top: 5vh;
-  padding-left: 10vw;
-  padding-right: 10vw;
+  padding-left: 2vw;
+  padding-right: 2vw;
 `;
 
 export const Content = styled.div`
@@ -36,4 +38,59 @@ export const Content = styled.div`
 export const Content2 = styled.div`
   font-size: 50px;
   font-weight: 400;
+`;
+
+export const Containers = styled.div`
+  display: flex;
+  width: 20vw;
+  height: 64vh;
+  flex-direction: column;
+  border-radius: 20px;
+  padding: 15px;
+  align-items: center;
+  gap: 15px;
+  background: rgba(255, 255, 255, 0.3);
+`;
+
+export const Card = styled.div`
+  display: flex;
+  width: 90%;
+  height: 20%;
+  border-radius: 10px;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #e6e7e1;
+  padding-bottom: 1vh;
+  padding-top: 2vh;
+  transition: scale 0.2s ease-in-out;
+
+  &:hover {
+    scale: 1.05;
+  }
+`;
+
+export const Badge = styled.div<CardStyleProps>`
+  background-color: red;
+  color: white;
+
+  /* 1. Keeps the div exactly as wide as its content */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  /* 2. Control the size using padding instead of width/height */
+  padding: 2px 7px;
+
+  border-radius: 5px; /* Pill shape */
+  font-size: 11px;
+  font-weight: 100;
+  font-family: "Inter", sans-serif;
+
+  background-color: ${({ priority }) =>
+    {
+      if(priority == "HIGH") return "red";
+      else if(priority == "LOW") return "#f7ca18";
+      else if(priority == "MID") return "#ca6924"
+    }};
 `;

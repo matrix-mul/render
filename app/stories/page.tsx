@@ -10,7 +10,6 @@ import Typography from "@mui/material/Typography";
 import instance from "../axiosConfig";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { useOnInView } from "react-intersection-observer";
-import { ReactEventHandler, useEffect } from "react";
 import { useSelector } from "react-redux";
 export default function Page() {
   const fetchStories = async ({ pageParam }: { pageParam: number }) => {

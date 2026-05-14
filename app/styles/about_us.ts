@@ -22,6 +22,7 @@ export const Main = styled.div`
 
 export const Body = styled.div`
   display: flex;
+  // justify-content: space-between;
   padding: 10px;
   height: 80%;
   gap: 20px;
@@ -93,4 +94,17 @@ export const Badge = styled.div<CardStyleProps>`
       else if(priority == "LOW") return "#f7ca18";
       else if(priority == "MID") return "#ca6924"
     }};
+`;
+
+
+export const Containers2 = styled.div`
+  display: flex;
+  width: 30vw;
+  height: 64vh;
+  flex-direction: column;
+  border-radius: 20px;
+  padding: 15px;
+  align-items: center;
+  gap: 15px;
+  background: rgba(255, 255, 255, 0.3);
 `;

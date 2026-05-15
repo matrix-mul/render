@@ -51,6 +51,7 @@ export const Containers = styled.div`
   align-items: center;
   gap: 15px;
   background: rgba(255, 255, 255, 0.3);
+  overflow: scroll;
 `;
 
 export const Card = styled.div`
@@ -65,7 +66,7 @@ export const Card = styled.div`
   padding-bottom: 1vh;
   padding-top: 2vh;
   transition: scale 0.2s ease-in-out;
-
+  // min-height: 20%;
   &:hover {
     scale: 1.05;
   }
@@ -75,12 +76,10 @@ export const Badge = styled.div<CardStyleProps>`
   background-color: red;
   color: white;
 
-  /* 1. Keeps the div exactly as wide as its content */
   display: inline-flex;
   align-items: center;
   justify-content: center;
 
-  /* 2. Control the size using padding instead of width/height */
   padding: 2px 7px;
 
   border-radius: 5px; /* Pill shape */
@@ -106,5 +105,5 @@ export const Containers2 = styled.div`
   padding: 15px;
   align-items: center;
   gap: 15px;
-  background: rgba(255, 255, 255, 0.3);
+  // background: rgba(255, 255, 255, 0.3);
 `;

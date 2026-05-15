@@ -23,12 +23,12 @@ export const boardSlice = createSlice({
   initialState,
   reducers: {
     addCard: (state, action) => {
-      //   const cardData = action.payload;
-      //   const newCardId = `card-${nanoid()}`;
-      //   state.cards[newCardId] = {
-      //     title: cardData.title,
-      //     priority: cardData.priority,
-      //   };
+      const data = action.payload;
+      const newCard = {
+        title: data.title,
+        priority: data.priority,
+      };
+      state.todo.push(newCard);
     },
     deleteCard: (state, action) => {
       const id = action.payload;
@@ -55,8 +55,7 @@ export const boardSlice = createSlice({
 
       if (
         activeContainter === null ||
-        finalContainter === null ||
-        activeContainter == finalContainter
+        finalContainter === null 
       )
         return;
 

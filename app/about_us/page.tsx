@@ -1,19 +1,9 @@
 "use client";
 import { Separator } from "@/components/ui/separator";
 import { DragDropProvider } from "@dnd-kit/react";
-import {
-  Badge,
-  Card,
-  Containers,
-  Content,
-  Containers2,
-  Main,
-  Nav,
-} from "../styles/about_us";
+import { Card, Containers2, Main } from "../styles/about_us";
 import { Body } from "../styles/about_us";
 import Navbar from "@/components/Navbar";
-import { useState } from "react";
-import * as React from "react";
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
@@ -22,21 +12,23 @@ import TextField from "@mui/material/TextField";
 import DCard from "./DCard";
 import { DColumn } from "./DCols";
 import { useDispatch, useSelector } from "react-redux";
-import { moveCard } from "../slice/boardSlice";
+import { addCard, moveCard } from "../slice/boardSlice";
 import { RootState } from "../store/store";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Controller, useForm } from "react-hook-form";
 import * as yup from "yup";
-import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
-import Select, { SelectChangeEvent } from "@mui/material/Select";
 import Button from "@mui/material/Button";
-import InputLabel from "@mui/material/InputLabel";
-import FormHelperText from "@mui/material/FormHelperText";
 
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import Select, { SelectChangeEvent } from "@mui/material/Select";
+import { useState } from "react";
+
+type priority = "HIGH" | "LOW" | "MID" | "";
 export interface Card {
   title: string;
-  priority: "HIGH" | "LOW" | "MID";
+  priority: priority;
 }
 
 export interface BoardState {
@@ -67,12 +59,13 @@ export default function Page() {
     },
   });
   const handleSubmit = (data: CardForm) => {
-    // login.mutate(data, {
-    //   onSuccess: () => {
-    //     dispatch(submit(data));
-    //     redirect("/stories");
-    //   },
-    // });
+    dispatch(addCard(data));
+    form.reset();
+  };
+
+  const [filter, setFilter] = useState<priority>("");
+  const handleChange = (event: SelectChangeEvent) => {
+    setFilter(event.target.value as priority);
   };
 
   return (
@@ -94,18 +87,42 @@ export default function Page() {
           }}
         >
           <DColumn id="todo">
-            <h1 className="m-5">TODO</h1>
-            {board.todo.map((data, index) => (
-              <DCard
-                key={data.title}
-                id={data.title}
-                index={index}
-                cardData={data}
-              />
-            ))}
+            <div className="flex justify-between w-[90%] mr-5">
+              <h1 className="m-5">TODO</h1>
+              <FormControl className="w-[70%]">
+                <InputLabel id="demo-simple-select-label">Priority</InputLabel>
+                <Select
+                  // className="h-[80%]"
+                  variant="standard"
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  value={filter}
+                  label="Priority"
+                  onChange={handleChange}
+                  defaultValue=""
+                >
+                  <MenuItem value={"HIGH"}>HIGH</MenuItem>
+                  <MenuItem value={"MID"}>MID</MenuItem>
+                  <MenuItem value={"LOW"}>LOW</MenuItem>
+                  <MenuItem value={""}>ALL</MenuItem>
+                </Select>
+              </FormControl>
+            </div>
+            {board.todo
+              .filter((data) => {
+                if (filter == "") return true;
+                return data.priority == filter;
+              })
+              .map((data, index) => (
+                <DCard
+                  key={data.title}
+                  id={data.title}
+                  index={index}
+                  cardData={data}
+                />
+              ))}
           </DColumn>
           <DColumn id="inProg">
-            {" "}
             <h1 className="m-5">In Progress</h1>
             {board.inProg.map((data, index) => (
               <DCard
@@ -130,13 +147,13 @@ export default function Page() {
         </DragDropProvider>
         <Containers2>
           <form
-            className="flex flex-col w-[30%] h-full gap-5 mt-10 m-3"
+            className="flex flex-col w-[60%] h-full gap-5 mt-10 m-3"
             id="form-rhf-demo-1"
             onSubmit={form.handleSubmit(handleSubmit, (error) => {
               console.log("form submission failed", error);
             })}
           >
-            <h1 className="text-2xl">Login</h1>
+            <h1 className="text-2xl">Create a Ticket</h1>
             <Controller
               name="title"
               control={form.control}
@@ -145,20 +162,20 @@ export default function Page() {
                   {...field}
                   error={fieldState.invalid}
                   id="outlined-error-helper-text"
-                  label="Enter your email address"
+                  label="Title for the ticket."
                   helperText={fieldState.error?.message}
                 />
               )}
             />
-            {/* <Controller
+            <Controller
               name="priority"
               control={form.control}
               render={({ field, fieldState }) => (
-                <>
+                <FormControl {...field}>
+                  <FormLabel id={`label`}>Priority</FormLabel>
                   <RadioGroup
-                    {...field}
-                    aria-labelledby={`label`}
-
+                    aria-labelledby={`$label`}
+                    value={field.value || ""}
                     name="radio-buttons-group"
                   >
                     <FormControlLabel
@@ -167,7 +184,7 @@ export default function Page() {
                       label="HIGH"
                     />
                     <FormControlLabel
-                      value="MIDasd"
+                      value="MID"
                       control={<Radio />}
                       label="MID"
                     />
@@ -177,18 +194,15 @@ export default function Page() {
                       label="LOW"
                     />
                   </RadioGroup>
-                  {fieldState.error && (
-                    <FormHelperText>{fieldState.error.message}</FormHelperText>
-                  )}
-                </>
+                </FormControl>
               )}
-            /> */}
+            />
             <Button
               disabled={!form.formState.isValid}
               type="submit"
               variant="blackBtn"
             >
-              Login
+              Create
             </Button>
           </form>
         </Containers2>
